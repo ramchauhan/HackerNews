@@ -1,0 +1,36 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+
+{% load humanize  %}
+<span class="logut">
+    <a href="/accounts/logout/" style="float: right">Logout</a>
+</span>
+<h1>News Lists</h1>
+<ul>
+{% for news in news_items %}
+    <div id="{{ news.id }}" class="articleContainer">
+        <li>
+            <span>
+                <p>
+                    <span style="font-weight: {% if not request.user in news.user_read.all %}bold{% else %}normal{% endif %};" class="articleTitle">
+                        <a href="{{ news.url }}">
+                            {{ news.title }}</a>
+                    </span>-
+                    <span style="cusor:hand; cursor:pointer;text-decoration:underline; color: #0000FF" class="articleDelete">
+                        Delete
+                    </span>
+                </p>
+
+            </span>
+        </li>
+        <hr/>
+    </div>
+{% empty %}
+    <li>No articles yet.</li>
+{% endfor %}
+</ul>
+
+
+</html>
