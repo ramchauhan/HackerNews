@@ -1,35 +1,39 @@
-from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.signals import user_logged_in
-from django.shortcuts import render, render_to_response, HttpResponse, HttpResponseRedirect
+from django.http import JsonResponse
+from django.shortcuts import render_to_response, HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView
-from signals.handlers import crawl_data_and_save_in_db
 
 from .models import NewsItem
 from .forms import UserCreationForm
 
 
 class NewsItemListView(ListView):
+    """
+    News List View to display the all news on dashboard
+    """
     model = NewsItem
     context_object_name = 'news_items'
-    ordering = '-id'
 
     def get_queryset(self):
-        user_logged_in.connect(crawl_data_and_save_in_db, sender=settings.AUTH_USER_MODEL)
-        return NewsItem.objects.all()
+        return NewsItem.objects.exclude(deleted_item=True)
 
 
 def sign_up(request):
-
+    """
+    View for sign up with the application
+    :param request:
+    :return: response
+    """
     context = RequestContext(request)
     already_registered = False
 
     if request.method == 'POST':
         user_form = UserCreationForm(data=request.POST)
         if user_form.is_valid():
-            user = user_form.save()
+            user_form.save()
             already_registered = True
         else:
             print user_form.errors
@@ -40,7 +44,11 @@ def sign_up(request):
 
 
 def user_login(request):
-
+    """
+    Login view to login in the application
+    :param request:
+    :return: response object
+    """
     context = RequestContext(request)
     if request.method == 'POST':
         email = request.POST['username']
@@ -61,10 +69,53 @@ def user_login(request):
 
 @login_required
 def user_logout(request):
+    """
+    View to be used for logout the user from application
+    :param request:
+    :return:
+    """
     logout(request)
     return HttpResponseRedirect('/')
 
 
 def home(request):
+    """
+    Home view
+    """
     context = RequestContext(request)
     return render_to_response('crawler/home.html', {}, context)
+
+
+@csrf_exempt
+def delete_news(request, pk):
+    """
+    this view is used to update the deleted_item column for a news from the dashboard softly not permanently
+    :param request:
+    :param pk:
+    :return: JsonResponse object
+    """
+    if request.is_ajax():
+        deleted_news = NewsItem.objects.get(id=pk)
+        deleted_news.deleted_item = True
+        deleted_news.save()
+        return JsonResponse({
+            'status': 'successfully deleted'
+        })
+
+
+@csrf_exempt
+def read_news(request, pk):
+    """
+    this view is used for update the read_item column if user is already went through the news
+    :param request:
+    :param pk:
+    :return:
+    """
+    if request.is_ajax():
+        news_you_read = NewsItem.objects.get(id=pk)
+        if not news_you_read.read_item:
+            news_you_read.read_item = True
+            news_you_read.save()
+        return JsonResponse({
+            'status': 'successfully updated your record'
+        })

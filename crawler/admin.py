@@ -9,7 +9,7 @@ from .forms import UserChangeForm, UserCreationForm
 class NewsItemAdmin(admin.ModelAdmin):
     search_fields = ["title"]
     list_display = ["title", "hacker_news_url", "url", "posted_on", "upvotes", "comments",
-                    "created_date", "modified_date"]
+                    "created_date", "modified_date", "deleted_item", "read_item"]
 
 
 class UserProfileAdmin(UserAdmin):

@@ -12,11 +12,39 @@
 {% endblock %}
 {% block css %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/static/css/main.css"/>
 {% endblock %}
 {% block js %}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".DeleteNews").click(function(event){
+                var newsId = $(this).parents('.articleContainer').attr('id');
+                var deleteUrl="/news/delete/"+newsId+"/";
+                var to_hide = $(this).parents('.articleContainer');
+                $.ajax({
+                    type:"POST",
+                    url: deleteUrl,
+                    success: function(result) {
+                        $(to_hide).hide();
+                    }
+                });
+            });
+
+            $(".NewsLink").click(function(event){
+                var newsId = $(this).parents('.articleContainer').attr('id');
+                var readUrl="/news/read/"+newsId+"/";
+                var to_change_color = $(this);
+                $.ajax({
+                    type:"POST",
+                    url: readUrl,
+                    success: function(result) {
+                        $(to_change_color).css('color', '#000');
+                    }
+                });
+            });
+        });
+    </script>
 {% endblock %}
 <title>{% block title %}Hackers News{% endblock %}</title>
 </head>
@@ -33,13 +61,6 @@
             <span class="home_link"><a href="{% url 'home' %}">Home</a></span>
         {% endif %}
     </div>
-    {% if request.user.is_active %}
-    <div class="row">
-       <span style="float:right;width:200px; height:100px; margin-right: 50px;">
-          <h5>Logged In As: {{ request.user.user_name }}</h5>
-       </span>
-    </div>
-    {% endif %}
     {% endblock %}
 
     {% block all_news %}

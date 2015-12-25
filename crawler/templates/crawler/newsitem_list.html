@@ -2,28 +2,41 @@
 {% load humanize  %}
 
 {% block all_news %}
-<h1>News Lists</h1>
+<h1>News Lists         <span style="font-size:20px;">(total count={{ news_items|length }})</span></h1>
 <ul>
 {% for news in news_items %}
     <div id="{{ news.id }}" class="articleContainer">
-        <li>
-            <span>
-                <p>
-                    <span style="font-weight: {% if not request.user in news.user_read.all %}bold{% else %}normal{% endif %};" class="articleTitle">
-                        <a href="{{ news.url }}">
-                            {{ news.title }}</a>
-                    </span>-
-                    <span style="cusor:hand; cursor:pointer;text-decoration:underline; color: #0000FF" class="articleDelete">
-                        Delete
-                    </span>
-                </p>
-
-            </span>
-        </li>
+        <span>
+            <p>
+                <span style="font-weight: bold;" class="NewsTitle">
+                    <a href="{{ news.url }}" target="_blank" class="NewsLink" {% if news.read_item %}style="color: #000;"{% endif %}>
+                        {{ news.title }}
+                    </a>
+                </span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span style="cusor:hand; cursor:pointer;text-decoration:underline; color: #0000FF" class="DeleteNews">
+                    Delete
+                </span>
+            </p>
+            <p style="font-size: 12px;line-height: 1px;">
+                <span class="postTime">
+                    {{ news.posted_on | naturaltime }}
+                </span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="comments">
+                    <a href="{{ article.hacker_news_url }}">
+                        {{ news.comments }} Comment{% if not news.comments == 1 %}s{% endif %}
+                    </a>
+                </span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="upvotes">
+                    <a href="{{ news.hacker_news_url }}">
+                        {{ news.upvotes }} Upvote{% if not news.upvotes == 1 %}s{% endif %}
+                    </a>
+                </span>
+            </p>
+        </span>
         <hr/>
     </div>
 {% empty %}
-    <li>No articles yet.</li>
+    <span>No articles yet.</span>
 {% endfor %}
 </ul>
 {% endblock %}

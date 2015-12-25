@@ -1,9 +1,11 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.contrib.auth import models as auth_models
 
 
 class CustomUserManager(auth_models.BaseUserManager):
+    """
+    custom manager for UserProfile
+    """
     def create_user(self, email, user_name, password):
 
         user = self.model(
@@ -65,6 +67,8 @@ class NewsItem(models.Model):
     upvotes = models.IntegerField()
     comments = models.IntegerField()
     created_date = models.DateTimeField(auto_now_add=True)
+    deleted_item = models.BooleanField()
+    read_item = models.BooleanField()
     modified_date = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):

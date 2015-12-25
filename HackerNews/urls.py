@@ -17,7 +17,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
-from crawler.views import (NewsItemListView, home, user_logout, user_login, sign_up)
+from crawler.views import (NewsItemListView, home, user_logout, user_login, sign_up, delete_news, read_news)
 
 
 urlpatterns = [
@@ -27,4 +27,6 @@ urlpatterns = [
     url(r'^logout/$', user_logout, name='logout'),
     url(r'^sign_up/$', sign_up, name='sign_up'),
     url(r'^login/$', user_login, name='login'),
+    url(r'^news/delete/(?P<pk>\d+)/$', login_required(delete_news), name='delete_news'),
+    url(r'^news/read/(?P<pk>\d+)/$', login_required(read_news), name='read_news'),
 ]
