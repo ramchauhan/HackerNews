@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block home %}
+<div class="row">
+    <div class="col-sm-6" style="height:200px;background-color:lavender;top:120px;text-align: center;">
+        <span style="text-align:cetner;">
+           <a href="{% url 'sign_up' %}"><h2 style="margin-top:80px;">Sign Up</h2></a></span>
+        </span>
+    </div>
+    <div class="col-sm-6" style="height:200px;background-color:lavenderblush;top:120px;text-align: center;">
+        <span style="text-align:cetner;">
+            <a href="{% url 'login' %}" style="margin-top:100px;"><h2 style="margin-top:80px;">Login</h2></</a>
+        </span>
+    </div>
+</div>
+{% endblock %}

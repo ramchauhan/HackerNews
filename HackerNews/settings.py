@@ -126,3 +126,5 @@ STATIC_URL = '/static/'
 PAGE_COUNT_LIMIT = 4
 URL_TO_CRAWL = 'https://news.ycombinator.com/news'
 NEWS_COMMENT_URL = 'https://news.ycombinator.com/'
+
+AUTH_USER_MODEL = 'crawler.UserProfile'

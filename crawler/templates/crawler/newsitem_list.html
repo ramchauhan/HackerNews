@@ -1,12 +1,7 @@
-<html>
-<head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-</head>
-
+{% extends "base.html" %}
 {% load humanize  %}
-<span class="logut">
-    <a href="/accounts/logout/" style="float: right">Logout</a>
-</span>
+
+{% block all_news %}
 <h1>News Lists</h1>
 <ul>
 {% for news in news_items %}
@@ -31,6 +26,4 @@
     <li>No articles yet.</li>
 {% endfor %}
 </ul>
-
-
-</html>
+{% endblock %}
