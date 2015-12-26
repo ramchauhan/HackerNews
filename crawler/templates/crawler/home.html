@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% block home %}
+{% if request.user.is_active %}
+<div class="row">
+    <h1> You are currently logged in</h1>
+</div>
+{% else %}
 <div class="row">
     <div class="col-sm-6" style="height:200px;background-color:lavender;top:120px;text-align: center;">
         <span style="text-align:cetner;">
@@ -12,4 +17,5 @@
         </span>
     </div>
 </div>
+{% endif %}
 {% endblock %}
