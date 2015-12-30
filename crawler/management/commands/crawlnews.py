@@ -85,7 +85,7 @@ class Command(BaseCommand):
         else:
             comment_count = int(comment_text.split(' ')[0])
         hacker_news_url = settings.NEWS_COMMENT_URL + '{}'.format(comment_tag.attrib['href'])
-        post_time_human_readable = subtext_tags[-2].text
+        post_time_human_readable = subtext_tags[-2].getchildren()[0].text
         post_time_data = post_time_human_readable.split(' ')
         time_value, time_unit = int(post_time_data[0]), post_time_data[1]
         post_time = self.calculate_time(time_value, time_unit)
