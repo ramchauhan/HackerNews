@@ -15,7 +15,7 @@ class AlbumSerializer(serializers.ModelSerializer):
 
 class PhotoSerializer(serializers.ModelSerializer):
     """
-    Album Serializer
+    Photo Serializer
     """
     class Meta:
         model = Photo
@@ -24,7 +24,7 @@ class PhotoSerializer(serializers.ModelSerializer):
 
 class AlbumPhotoSerializer(serializers.ModelSerializer):
     """
-    Album Serializer
+    AlbumPhoto Serializer
     """
     album_id = AlbumSerializer()
     photo_id = PhotoSerializer()

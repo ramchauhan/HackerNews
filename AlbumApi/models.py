@@ -5,7 +5,7 @@ from django.db import models
 
 class Album(models.Model):
     """
-    Model for Photo
+    Model for Album
     """
     album_id = models.AutoField(primary_key=True)
     album_title = models.CharField(max_length=100)

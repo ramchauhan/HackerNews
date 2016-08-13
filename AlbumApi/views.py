@@ -12,7 +12,7 @@ from .models import Album, AlbumPhoto, Photo
 
 class AlbumPhotoViewSet(viewsets.ModelViewSet):
     """
-    Album photo Viewset
+    AlbumPhoto Viewset
     """
     queryset = AlbumPhoto.objects.all()
     serializer_class = AlbumPhotoSerializer
