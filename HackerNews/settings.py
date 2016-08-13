@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'crawler',
+    'AlbumApi',
+    'rest_framework',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -71,6 +73,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'HackerNews.wsgi.application'
+
+# custom exception handler
+REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'AlbumApi.utils.custom_exception_handler.custom_exception_handler'
+}
 
 
 # Database

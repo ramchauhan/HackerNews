@@ -19,6 +19,13 @@ from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 from crawler.views import (NewsItemListView, home, user_logout, user_login, sign_up, delete_news, read_news)
 
+from AlbumApi.views import AlbumPhotoViewSet
+from rest_framework import routers
+
+
+router = routers.DefaultRouter()
+router.register(r'albumphoto', AlbumPhotoViewSet)
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -29,4 +36,6 @@ urlpatterns = [
     url(r'^login/$', user_login, name='login'),
     url(r'^news/delete/(?P<pk>\d+)/$', login_required(delete_news), name='delete_news'),
     url(r'^news/read/(?P<pk>\d+)/$', login_required(read_news), name='read_news'),
+    url(r'^', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
