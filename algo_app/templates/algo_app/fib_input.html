@@ -1,0 +1,13 @@
+{% extends "entry_base.html" %}
+{% block input_form %}
+    <div class="row">
+        <center style="margin-top:100px;">
+            <form action="/algo/" method="post">
+                <p>Enter The Number for which you want to get the Nth Number</p><br />
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Submit" />
+            </form>
+        </center>
+    <div class="row">
+{% endblock %}

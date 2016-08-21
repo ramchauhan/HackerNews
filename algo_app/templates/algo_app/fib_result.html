@@ -1,0 +1,14 @@
+{% extends "entry_base.html" %}
+{% block fib_res %}
+    <div class="row">
+        <center style="margin-top:100px;">
+            <div class="row">
+                <a href={% url 'algo' %}>BACK</a>
+            </div>
+            <div class="row">
+                <span><h1>Result:  <span>{{ res }}</span></h1></span>
+                <span><h1>Time Taken:  <span>{{ time }}</span></h1></span>
+            </div>
+        </center>
+    <div class="row">
+{% endblock %}

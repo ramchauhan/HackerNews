@@ -1,13 +1,8 @@
-from django.shortcuts import render
-
-# Rest frame Work
 from rest_framework import viewsets
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from .serializers import AlbumSerializer, PhotoSerializer, AlbumPhotoSerializer
+from .serializers import AlbumPhotoSerializer
 
 
-from .models import Album, AlbumPhoto, Photo
+from .models import AlbumPhoto
 
 
 class AlbumPhotoViewSet(viewsets.ModelViewSet):
