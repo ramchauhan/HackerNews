@@ -9,7 +9,6 @@ def save_updates(news_items=None):
     :param news_items:
     :return:
     """
-    import pdb; pdb.set_trace()
     for news in news_items:
         news.update({'deleted_item': False, "read_item": False})
         NewsItem.objects.update_or_create(hacker_news_url=news['hacker_news_url'], defaults=news)
