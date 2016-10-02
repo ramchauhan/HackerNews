@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'crawler',
     'AlbumApi',
     'rest_framework',
-    'algo_app'
+    'algo_app',
+    'fin_data'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -84,11 +85,24 @@ REST_FRAMEWORK = {
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+# # Setting to use MySql database in case for fin_data app
+# DATABASE_ROUTERS = ['fin_data.routers.FinAppDatabaseRouter']
+# DATABASE_APPS_MAPPING = {'fin_data': 'finance'}
+#
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    },
+    # 'finance': {
+    #     'NAME': 'fin_data',
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'USER': 'root',
+    #     'PASSWORD': 'sweta200',
+    #     'HOST': 'localhost',
+    #     'PORT': ''
+    # }
 }
 
 
@@ -136,3 +150,6 @@ URL_TO_CRAWL = 'https://news.ycombinator.com/news'
 NEWS_COMMENT_URL = 'https://news.ycombinator.com/'
 
 AUTH_USER_MODEL = 'crawler.UserProfile'
+
+FIN_DATA_FILE_LOC = os.path.join(BASE_DIR, 'fin_data/fin_data_files')
+API_END_POINT = 'http://127.0.0.1:8000/financedata/api/v1/financedata'

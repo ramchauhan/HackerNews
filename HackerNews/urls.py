@@ -21,16 +21,10 @@ from crawler.views import (NewsItemListView, home, user_logout, user_login, sign
 
 from algo_app.views import algo_view
 
-from AlbumApi.views import AlbumPhotoViewSet
-from rest_framework import routers
-
-
-router = routers.DefaultRouter()
-router.register(r'albumphoto', AlbumPhotoViewSet)
-
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    # url(r'^otheradmin/', othersite.urls),
     url(r'^$', home, name='home'),
     url(r'^news/$', login_required(NewsItemListView.as_view()), name='news_list'),
     url(r'^logout/$', user_logout, name='logout'),
@@ -39,6 +33,7 @@ urlpatterns = [
     url(r'^algo/$', algo_view, name='algo'),
     url(r'^news/delete/(?P<pk>\d+)/$', login_required(delete_news), name='delete_news'),
     url(r'^news/read/(?P<pk>\d+)/$', login_required(read_news), name='read_news'),
-    url(r'^', include(router.urls)),
+    url(r'^financedata/', include('fin_data.urls')),
+    url(r'^albumphoto/', include('AlbumApi.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
